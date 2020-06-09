@@ -1,0 +1,144 @@
+<template>
+    <div>
+        <section class="breadcrumbs-custom-inset">
+            <div class="breadcrumbs-custom context-dark">
+                <div class="container">
+                    <h2 class="breadcrumbs-custom-title">Product List</h2>
+                    <ul class="breadcrumbs-custom-path">
+                    <li><a href="/">Home</a></li>
+                    <li>Product</li>
+                    </ul>
+                </div>
+                <div class="box-position" style="background-image: url(assets/images/bg-product.jpg);"></div>
+            </div>
+        </section>
+
+        <div class="container" style="padding: 100px 0px">
+            
+        <div class="row">
+          <div class="col-sm-4 col-lg-4">
+            <div class="post-sidebar-item" style="margin-bottom: 50px">
+                <h5 style="padding: 12px;">Saring</h5>
+                <div class="post-sidebar-item-inset">
+                    <ul class="list list-categories">
+                        <li>
+                            <a data-toggle="collapse" href="#collapseConstruction" class="active" >Construction</a>
+                            <div class="collapse" id="collapseConstruction">
+                                <div class="custom-control my-1 mr-sm-2">
+                                <input type="checkbox">
+                                <label  for="customControlInline">LTF</label>
+                            </div>
+                            <div class="custom-control  my-1 mr-sm-2">
+                                <input type="checkbox" >
+                                <label for="customControlInline">PBF</label>
+                            </div>
+                            <div class="custom-control my-1 mr-sm-2">
+                                <input type="checkbox" >
+                                <label  for="customControlInline">Herringbone</label>
+                            </div>
+                            <div class="custom-control my-1 mr-sm-2">
+                                <input type="checkbox" >
+                                <label for="customControlInline">Design Parquet</label>
+                            </div>
+                            <div class="custom-control my-1 mr-sm-2">
+                                <input type="checkbox" >
+                                <label for="customControlInline">Chevron</label>
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <a data-toggle="collapse" href="#collapseExample" class="active" >Warna</a>
+                          <div class="collapse" id="collapseExample">
+                            <div class="custom-control my-1 mr-sm-2">
+                                <input type="radio" value="" name="color-filter" v-model="colorFilter">
+                                <label for="customControlInline">All</label>
+                            </div>
+                            <div class="custom-control my-1 mr-sm-2">
+                                <input type="radio" value="Light" name="color-filter" v-model="colorFilter">
+                                <label for="customControlInline">Terang</label>
+                            </div>
+                            <div class="custom-control my-1 mr-sm-2">
+                                <input type="radio" value="Medium Dark" name="color-filter" v-model="colorFilter">
+                                <label for="customControlInline">Gelap Sedang</label>
+                            </div>
+                            <div class="custom-control my-1 mr-sm-2">
+                                <input type="radio" value="Dark" name="color-filter" v-model="colorFilter">
+                                <label for="customControlInline" >Gelap</label>
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <a data-toggle="collapse" href="#collapseSize" class="active" >Ukuruan</a>
+                          <div class="collapse" id="collapseSize">
+                              <label for="customRange1">Ketebalan</label>
+                              <input type="range" v-model="thicknessFilter" class="custom-range" value="0" step="0.1" max="40">
+                              <label for="customRange1">Lebar</label>
+                              <input type="range" v-model="widthFilter" class="custom-range" value="0" step="0.1" max="40">
+                              <label for="customRange1">Panjang</label>
+                              <input type="range" v-model="lengthFilter" class="custom-range" value="0" step="0.1" max="40">
+                          </div>
+                        </li>
+                        
+                  </ul>
+                </div>
+              </div>
+          </div>
+          <div class="col-sm-8 col-lg-8">
+                <div class="row">
+                    <div class="col-sm-3 col-lg-3 wow fadeInLeft" v-for="prd in products">
+                        <article class="post post-modern">
+                            <a class="post-modern-figure" href="javascript:void(0)">
+                                <img :src="prd.image" alt="">
+                            </a>
+                        <h5 class="post-modern-title" style="text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 75ch;">
+                            <a href="javascript:void(0)">{{prd.name}}</a></h5>
+                        <p class="post-modern-text" style="text-align: center; margin-top: 5px; margin-bottom: 20px;">-</p>    
+                        </article>
+                    </div>
+                </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</template>
+
+<script>
+    import Api from "../services/api/product.js"
+    export default {
+        data() {
+            return {
+                categories: [],
+                products: [],
+                construction: [],
+                colorFilter: '',
+                currentPage: 1,
+                total_: 0,
+                widthFilter: 0,
+                thicknessFilter: 0,
+                lengthFilter: 0
+            }
+        },
+        watch:  {
+            'colorFilter': function(newVal, oldVal) {
+                this.filtering()
+            },
+            'widthFilter': function(newVal, oldVal) {
+                this.filtering()
+            }
+        },
+        mounted() {
+            Api.getProduct()
+            .then(_resp => {
+                this.products = _resp.data.content.rows
+            })
+        },
+        methods: {
+            filtering() {
+                Api.getProduct(this.currentPage, 12,'',this.colorFilter, '', this.widthFilter)
+                .then(_resp => {
+                    this.products = _resp.data.content.rows
+                })
+            }
+        }
+    }
+</script>

@@ -1,0 +1,17 @@
+<template>
+    <div class="page">
+        <nav-top></nav-top>
+        <router-view></router-view>
+    </div>
+</template>
+
+<script>
+    import NavTop from '../components/NavbarTop.html'
+    import MainFooter from '../components/MainFooter.html'
+    export default {
+        components: {
+            NavTop,
+            MainFooter
+        }
+    }
+</script>

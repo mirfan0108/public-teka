@@ -1,0 +1,28 @@
+<template>
+    <div>
+        <section class="breadcrumbs-custom-inset">
+            <div class="breadcrumbs-custom context-dark">
+                <div class="container">
+                    <h2 class="breadcrumbs-custom-title">{{ construction }}</h2>
+                    <ul class="breadcrumbs-custom-path">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="#">Product</a></li>
+                    <li class="active">TLF</li>
+                    </ul>
+                </div>
+                <div class="box-position" style="background-image: url(assets/images/bg-product.jpg);"></div>
+            </div>
+        </section>
+    </div>
+</template>
+
+<script>
+    export default {
+        props: ['construction'],
+        data() {
+            return {
+                
+            }
+        }
+    }
+</script>

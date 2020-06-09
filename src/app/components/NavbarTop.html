@@ -1,0 +1,199 @@
+<template>
+    <!-- HEADER START -->
+    <header class="section page-header">
+        <div class="rd-navbar-wrap rd-navbar-modern-wrap">
+          <nav class="rd-navbar rd-navbar-modern" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed"
+            data-md-layout="rd-navbar-fixed" data-md-device-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-static"
+            data-lg-device-layout="rd-navbar-fixed" data-xl-layout="rd-navbar-static"
+            data-xl-device-layout="rd-navbar-static" data-xxl-layout="rd-navbar-static"
+            data-xxl-device-layout="rd-navbar-static" data-lg-stick-up-offset="46px" data-xl-stick-up-offset="46px"
+            data-xxl-stick-up-offset="70px" data-lg-stick-up="true" data-xl-stick-up="true" data-xxl-stick-up="true">
+            <div class="rd-navbar-main-outer">
+              <div class="rd-navbar-main">
+                <div class="rd-navbar-panel">
+                  <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button>
+                  <div class="rd-navbar-brand">
+                      <a class="brand" href="/"><img src="assets/images/LogoHeader-98910-1584269023.png" alt="" width="149" height="46"/></a>
+                    </div>
+                </div>
+                <div class="rd-navbar-main-element">
+                    <div class="rd-navbar-nav-wrap">
+                        <ul class="rd-navbar-nav">
+                            <li :class="activedPage == 'home' ? 'rd-nav-item active': 'rd-nav-item'" @click.prevent="setActivedPage('home')">
+                                <router-link class="rd-nav-link" :to="{name: 'home.page'}" >{{text_home}}</router-link>
+                            </li>
+                            <li class="rd-nav-item "><a class="rd-nav-link">{{text_product}}</a>
+                                <ul class="rd-menu rd-navbar-dropdown" v-if="constructions.length > 0">
+                                    <li class="rd-dropdown-item" v-for="construc in constructions" @click.prevent="setActivedPage('product')">
+                                        <a @click.prevent="$root.$router.push({name: 'product.page'})">{{ construc.name }}</a>
+                                    </li>
+                                                        
+                                </ul>
+                            </li>
+                            
+                            <!-- <li class="rd-nav-item "><a class="rd-nav-link" href="trending-product"><?php echo $mm_trend; ?></a> -->
+                            <li class="rd-nav-item "><a class="rd-nav-link" href="#project-gallery" >{{text_gallery}}</a>
+                            </li>
+                            <li :class="activedPage == 'about-us' ? 'rd-nav-item active': 'rd-nav-item' " @click.prevent="setActivedPage('about-us')">
+                                <a href="javascript:void(0)" class="rd-nav-link" @click.prevent="$root.$router.push({name: 'about.us'})"> {{text_about}}</a>
+                                <!-- <router-link :to="{name: 'about.us'}" ></router-link> -->
+                            </li>
+                            <li class="rd-nav-item "><a class="rd-nav-link" href="#">{{text_support}}</a></li>
+                            <li class="rd-nav-item"><a class="rd-nav-link" href="#">{{text_lang}}</a>
+                                <ul class="rd-menu rd-navbar-dropdown">
+                                    <li class="rd-dropdown-item"><a class="rd-dropdown-link" href="javascript:void(0)" v-if="id_lang != 1" @click.prevent="setLang(1)">Bahasa</a></li>
+                                    <li class="rd-dropdown-item"><a class="rd-dropdown-link" href="javascript:void(0)" v-if="id_lang != 2" @click.prevent="setLang(2)">English</a></li>
+                                    <li class="rd-dropdown-item"><a class="rd-dropdown-link" href="javascript:void(0)" v-if="id_lang != 3" @click.prevent="setLang(3)">Deutsch</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="rd-navbar-project-hamburger" data-multitoggle=".rd-navbar-main"
+                      data-multitoggle-blur=".rd-navbar-wrap" data-multitoggle-isolate="data-multitoggle-isolate">
+                      <div class="project-hamburger"><span class="project-hamburger-arrow-top"></span><span
+                          class="project-hamburger-arrow-center"></span><span class="project-hamburger-arrow-bottom"></span>
+                      </div>
+                      <div class="project-hamburger-2"><span class="project-hamburger-arrow"></span><span
+                          class="project-hamburger-arrow"></span><span class="project-hamburger-arrow"></span>
+                      </div>
+                      <div class="project-close"><span></span><span></span></div>
+                    </div>
+                  </div>
+                  <div class="rd-navbar-project rd-navbar-modern-project">
+                    <div class="rd-navbar-project-modern-header">
+                      <h4 class="rd-navbar-project-modern-title">Follow Us</h4>
+                      <div class="rd-navbar-project-hamburger" data-multitoggle=".rd-navbar-main"
+                        data-multitoggle-blur=".rd-navbar-wrap" data-multitoggle-isolate="data-multitoggle-isolate">
+                        <div class="project-close"><span></span><span></span></div>
+                      </div>
+                    </div>
+                    <div class="rd-navbar-project-content rd-navbar-modern-project-content">
+                      <div>
+                        <p class="text-spacing-25">
+                            ingin mendapatkan ide lantai terbaru dari tim kami? Ikuti kami di Instagram untuk mengikuti tren dan penawaran terbaru dari Tekaparquet.
+                        </p>
+                        <ul class="rd-navbar-modern-contacts">
+                          <li>
+                            <div class="unit unit-spacing-sm">
+                              <div class="unit-left"><span class="icon fa fa-phone"></span></div>
+                              <div class="unit-body"><a class="link-phone" href="tel:#"><?php echo $contact[0]->phone ?></a></div>
+                            </div>
+                          </li>
+                          <li>
+                            <div class="unit unit-spacing-sm">
+                              <div class="unit-left"><span class="icon fa fa-envelope"></span></div>
+                              <div class="unit-body"><a class="link-email" href="mailto:#"><?php echo $contact[0]->mail ?></a></div>
+                            </div>
+                          </li>
+                          <li>
+                            <div class="unit unit-spacing-sm">
+                              <div class="unit-left"><span class="icon fa fa-map-marker"></span></div>
+                              <div class="unit-body"><a class="link-location" href="mailto:#"><?php echo $contact[0]->location ?></a></div>
+                            </div>
+                          </li>
+                        </ul>
+                        <ul class="list-inline rd-navbar-modern-list-social">
+                        <li><a class="icon fa fa-facebook" ></a></li>
+                            <li><a class="icon fa fa-twitter" ></a></li>
+                            <li><a class="icon fa fa-youtube" ></a></li>
+                            <li><a class="icon fa fa-instagram"></a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </header>
+    <!-- HEADER END -->
+</template>
+
+<script>
+    import { mapState } from 'vuex';
+    import Api from "../services/api/content.js"
+    export default {
+        data() {
+            return {
+                constructions: [],
+                activedPage: 'home',
+                text_home: null,
+                text_product: null,
+                text_gallery: null,
+                text_about: null,
+                text_support: null,
+                text_lang: null,
+                text_contact: null,
+                id_lang: null
+            }
+        },
+        computed: mapState([
+            'lang_id', 'mm_lang_swith',
+            'mm_home_id', 'mm_product_id',
+            'mm_gallery_id', 'mm_about_id',
+            'mm_support_id', 'mm_contact_id',
+            'mm_lang_id', 'mm_home_en',
+            'mm_product_en', 'mm_gallery_en',
+            'mm_about_en', 'mm_support_en',
+            'mm_contact_en', 'mm_lang_en',
+            'mm_home_de', 'mm_product_de',
+            'mm_gallery_de', 'mm_about_de',
+            'mm_support_de', 'mm_contact_de',
+            'mm_lang_de',
+        ]),
+        beforeMount() {
+            this.id_lang = sessionStorage.getItem('__REG')
+        },
+        mounted() {
+            if(this.lang_id != null || sessionStorage.getItem('__REG')) {
+                console.log(sessionStorage.getItem('__REG'))
+                console.log(this.mm_home_id)
+                switch (sessionStorage.getItem('__REG')) {
+                    case '1':
+                        this.text_home = this.mm_home_id
+                        this.text_product = this.mm_product_id
+                        this.text_gallery = this.mm_gallery_id
+                        this.text_about = this.mm_about_id
+                        this.text_support = this.mm_support_id
+                        this.text_contact = this.mm_contact_id
+                        this.text_lang = this.mm_lang_id
+                        break;
+                    case '2':
+                        this.text_home = this.mm_home_en
+                        this.text_product = this.mm_product_en
+                        this.text_gallery = this.mm_gallery_en
+                        this.text_about = this.mm_about_en
+                        this.text_support = this.mm_support_en
+                        this.text_contact = this.mm_contact_en
+                        this.text_lang = this.mm_lang_en
+                        break;
+                    case '3':
+                        this.text_home = this.mm_home_de
+                        this.text_product = this.mm_product_de
+                        this.text_gallery = this.mm_gallery_de
+                        this.text_about = this.mm_about_de
+                        this.text_support = this.mm_support_de
+                        this.text_contact = this.mm_contact_de
+                        this.text_lang = this.mm_lang_de
+                        break;
+                    default:
+                        break;
+                }
+            }
+            Api.getConstruction()
+            .then(_response => {
+                this.constructions = _response.data.content
+            })
+        },
+        methods: {
+            setActivedPage(page) {
+                this.activedPage = page
+            },
+            setLang(lang) {
+                sessionStorage.setItem('__REG', lang)
+                window.location.reload()
+            }
+        }
+    }
+
+</script>

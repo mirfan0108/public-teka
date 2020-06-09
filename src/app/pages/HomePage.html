@@ -1,0 +1,91 @@
+<template>
+    <div>
+        <section class="section swiper-container swiper-slider swiper-slider-modern" data-loop="true" data-autoplay="5000"
+            data-simulate-touch="true" data-nav="true" data-slide-effect="fade">
+            <div class="swiper-wrapper text-left" v-for="slide in slides">
+                <div class="swiper-slide" :data-slide-bg="slide.image">
+                <div class="swiper-slide-caption">
+                    <div class="container">
+                    <div class="row">
+                        <div class="col-11 col-sm-9 col-md-8 col-lg-7 col-xl-6 col-xxl-5">
+                        <div class="slider-modern-box">
+                            <h2 class="oh slider-modern-title">
+                            <span data-caption-animate="slideInDown" data-caption-delay="0">{{slide.title}}</span>
+                            <p data-caption-animate="fadeInRight" data-caption-delay="400">{{slide.description}}</p>
+                            <div class="oh button-wrap"><a class="button button-default-outline-2 button-ujarak"
+                                href="discover" data-caption-animate="slideInLeft" data-caption-delay="400">Visualizer</a></div>
+                            </h2>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-pagination swiper-pagination-style-2"></div>
+        </section>
+
+        <section class="section section-sm section-first bg-default">
+            <div class="container">
+                <div class="oh">
+                <div class="title-decoration-lines wow slideInUp" data-wow-delay="0s">
+                    <h6 class="title-decoration-lines-content">Sedang Trending</h6>
+                </div>
+                </div>
+                <div class="row row-30 justify-content-center" data-lightgallery="group">
+                <!-- <?php foreach($prefferedsingle as $key=>$value): ?>
+                <div class="col-md-12 col-lg-8">
+                    <div class="oh">
+                    <article class="box-sportlight wow slideInDown" data-wow-delay="0s"><a class="box-sportlight-figure"
+                        href="<?php echo $value->image ?>" data-lightgallery="item"><img src="<?php echo $value->image ?>" alt="" width="770" height="332" /></a>
+                        <div class="box-sportlight-caption">
+                        <h5 class="box-sportlight-title"><?php echo $value->name ?></h5>
+                        <div class="box-sportlight-arrow"></div>
+                        </div>
+                        <div class="box-sportlight-badge box-sportlight-new">New</div>
+                    </article>
+                    </div>
+                </div>
+                <?php endforeach; ?>
+                <?php foreach($prefferedall as $key=>$value): ?>
+                <div class="col-sm-6 col-lg-4">
+                    <div class="oh-desktop">
+                    <article class="box-sportlight box-sportlight-sm wow slideInLeft" data-wow-delay="0s"><a
+                        class="box-sportlight-figure" href="<?php echo $value->image ?>" data-lightgallery="item"><img src="<?php echo $value->image ?>" alt="" width="370"
+                            height="332" /></a>
+                        <div class="box-sportlight-caption">
+                        <h5 class="box-sportlight-title"><?php echo $value->name ?></h5>
+                        <div class="box-sportlight-arrow"></div>
+                        </div>
+                    </article>
+                    </div>
+                </div>
+                <?php endforeach; ?> -->
+                </div>
+            </div>
+        </section>
+    </div>
+</template>
+
+<script>
+    import { mapState } from 'vuex';
+    import Api from "../services/api/content.js"
+    export default {
+        data() {
+            return {
+                slides: []
+            }
+        },
+        computed: mapState(['lang_id']),
+        mounted() {
+            
+            Api.getBanner(sessionStorage.getItem('__REG'))
+            .then(_response => {
+                this.slides = _response.data.content
+            })
+        }
+    }
+</script>
+
